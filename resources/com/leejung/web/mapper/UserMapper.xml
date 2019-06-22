@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leejung.web.mapper.LoginMapper">
+    <resultMap id="loginMap" type="com.leejung.web.domain.LoginDTO">
+        <id property="userid" column="USERID"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="phone" column="PHONE"/>
+        <result property="address" column="ADDRESS"/>
+    </resultMap>
+
+
+    <select id="login" resultMap="loginMap" parameterType="com.leejung.web.domain.LoginDTO">
+        select * from USER
+        where USERID LIKE #{userid} 
+                and PASSWORD LIKE #{password}
+    </select>     
+    
+    <update id="updateUser" parameterType="com.leejung.web.domain.LoginDTO">
+        UPDATE USER SET 
+	        PASSWORD = #{password}, PHONE = #{phone}, ADDRESS = #{address}
+	        WHERE USERID LIKE #{userid}
+    </update>
+
+    <delete id="deleteUser" parameterType="com.leejung.web.domain.LoginDTO">
+        DELETE FROM USER WHERE USERID LIKE #{userid} 
+    </delete>
+
+    <select id="selectList" resultMap="loginMap">
+        SELECT * FROM USER
+    </select>
+</mapper>
